@@ -19,6 +19,54 @@ namespace WebAppServer.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("Oracle:ValueGenerationStrategy", OracleValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WebAppServer.Models.ActualTask", b =>
+                {
+                    b.Property<int>("ActualTaskId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasAnnotation("Oracle:ValueGenerationStrategy", OracleValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CareSchedule_Id")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<int>("Palet_Id")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<DateTime?>("RealizationDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<int?>("User_Id")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.HasKey("ActualTaskId");
+
+                    b.ToTable("ActualTask");
+                });
+
+            modelBuilder.Entity("WebAppServer.Models.CareSchedule", b =>
+                {
+                    b.Property<int>("CareScheduleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasAnnotation("Oracle:ValueGenerationStrategy", OracleValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PaletPlantsType_Id")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<int>("PriorityNumber")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<DateTime>("TimeOfCare")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<int>("TypeOfCare_Id")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.HasKey("CareScheduleId");
+
+                    b.ToTable("CareSchedule");
+                });
+
             modelBuilder.Entity("WebAppServer.Models.Company", b =>
                 {
                     b.Property<int>("CompanyId")
@@ -33,6 +81,59 @@ namespace WebAppServer.Migrations
                     b.HasKey("CompanyId");
 
                     b.ToTable("Company");
+                });
+
+            modelBuilder.Entity("WebAppServer.Models.Palet", b =>
+                {
+                    b.Property<int>("PaletId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasAnnotation("Oracle:ValueGenerationStrategy", OracleValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateOfPlanting")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<int>("PaletNumber")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<int>("PaletPlantsType_Id")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.HasKey("PaletId");
+
+                    b.ToTable("Palet");
+                });
+
+            modelBuilder.Entity("WebAppServer.Models.PaletPlantsType", b =>
+                {
+                    b.Property<int>("PaletPlantsTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasAnnotation("Oracle:ValueGenerationStrategy", OracleValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("PaletPlantsTypeName")
+                        .HasMaxLength(20)
+                        .HasColumnType("NVARCHAR2(20)");
+
+                    b.HasKey("PaletPlantsTypeId");
+
+                    b.ToTable("PaletPlantsType");
+                });
+
+            modelBuilder.Entity("WebAppServer.Models.TypeOfCare", b =>
+                {
+                    b.Property<int>("TypeOfCareId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasAnnotation("Oracle:ValueGenerationStrategy", OracleValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TypeOfCareName")
+                        .HasMaxLength(20)
+                        .HasColumnType("NVARCHAR2(20)");
+
+                    b.HasKey("TypeOfCareId");
+
+                    b.ToTable("TypeOfCare");
                 });
 
             modelBuilder.Entity("WebAppServer.Models.UserCategory", b =>

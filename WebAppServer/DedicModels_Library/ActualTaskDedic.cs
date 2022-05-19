@@ -2,9 +2,12 @@
 
 namespace DedicModels_Library
 {
+    /// <summary>
+    /// Model Class that holds joined values from database about tasks to do and done
+    /// </summary>
     public class ActualTaskDedic
     {
-        //public int ActualTaskId { get; set; }
+        public int ActualTaskId { get; set; }
         //----------------Data to update--------------------------
         public int? User_Id { get; set; }                            
         public DateTime? RealizationDate { get; set; }

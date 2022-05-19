@@ -4,6 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAppServer.Contexts;
+using WebAppServer.Models;
+using WebAppServer.MoqModels;
+using WebAppServer.SingletonsFlags;
 
 namespace WebAppServer.Controllers.DbBasicControllers
 {
@@ -11,17 +15,58 @@ namespace WebAppServer.Controllers.DbBasicControllers
     [ApiController]
     public class CareScheduleController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        private OracleDbContext _dataContext;
+        public CareScheduleController(OracleDbContext dbContext)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-            })
-            .ToArray();
+            _dataContext = dbContext;
         }
 
+        /// <summary>
+        /// Rest Api Get method
+        /// </summary>
+        /// <returns>List of all CareSchedule</returns>
+        [HttpGet]
+        public List<CareSchedule> Get()
+        {
+            if (ApplicationVersion.IsTestVersion())
+            {
+                return MoqCareScheduleList.GetInstance().GetMoqList();
+            }
+            return _dataContext.CareSchedule.ToList();
+        }
+
+        /// <summary>
+        /// Rest Api Get method
+        /// </summary>
+        /// <returns>return CareSchedule model that have matching id parameter</returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CareSchedule>> GetCareSchedule(int id)
+        {
+            var inspection = await _dataContext.CareSchedule.FindAsync(id);
+            if (inspection == null)
+            {
+                return NotFound();
+            }
+            return inspection;
+        }
+
+        /// <summary>
+        /// Rest Api Post method, to insert Company into database 
+        /// </summary>
+        /// <returns>Inserted CareSchedule</returns>
+        [HttpPost]
+        public void Post(CareSchedule company)
+        {
+            if (ApplicationVersion.IsTestVersion())
+            {
+                MoqCareScheduleList.GetInstance().PushToMoqList(company);
+            }
+            else
+            {
+                _dataContext.CareSchedule.Add(company);
+                _dataContext.SaveChangesAsync();
+            }
+            //return CreatedAtAction("GetCompany", new { id = company.CompanyId }, company);
+        }
     }
 }

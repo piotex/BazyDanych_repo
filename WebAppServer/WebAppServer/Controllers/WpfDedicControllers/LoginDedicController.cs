@@ -15,18 +15,21 @@ namespace WebAppServer.Controllers.DbBasicControllers
     [ApiController]
     public class LoginDedicController : ControllerBase
     {
-        private readonly OracleDbContext _dataContext;
+        private OracleDbContext _dataContext;
         public LoginDedicController(OracleDbContext dbContext)
         {
             _dataContext = dbContext;
         }
-
+        /// <summary>
+        /// Login method 
+        /// </summary>
+        /// <returns>if user exist, returns user category id, -1 if not </returns>
         [HttpPost]
-        public int LogIn(string mail)                           //returns role_id
+        public int LogIn(Login login)                           //returns role_id
         {
             List<Users> tmp;
             if (ApplicationVersion.IsTestVersion()){
-                tmp = new MoqUsersList().GetMoqList();
+                tmp = MoqUsersList.GetInstance().GetMoqList();
             }
             else{
                 tmp = _dataContext.Users.ToList();
@@ -35,7 +38,7 @@ namespace WebAppServer.Controllers.DbBasicControllers
             //-------------------------------------------------------------poprawic
             foreach (var item in tmp)
             {
-                if (item.Mail == mail){
+                if (item.Mail == login.mail){
                     return item.UserCategory_Id;
                 }
             }
