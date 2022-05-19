@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseConneciton\DatabaseConneciton.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SqlCommands\DeleteSqlCommands\" />
+    <Folder Include="SqlCommands\ProcedureSqlCommands\" />
+    <Folder Include="SqlCommands\UpdateSqlCommands\" />
+  </ItemGroup>
+
+</Project>

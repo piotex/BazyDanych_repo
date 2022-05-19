@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer_v2", "WebServer_v
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseConneciton", "DatabaseConneciton\DatabaseConneciton.csproj", "{51EE3166-844C-4966-9A90-B05EB20F5053}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantsDatabaseControler", "PlantsDatabaseControler\PlantsDatabaseControler.csproj", "{6931EFF1-EF13-494F-969C-314DE220FC32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsForPlantsDatabaseControler", "TestsForPlantsDatabaseControler\TestsForPlantsDatabaseControler.csproj", "{53D212BD-4EB9-4096-B9B3-5C8FB831497E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{51EE3166-844C-4966-9A90-B05EB20F5053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51EE3166-844C-4966-9A90-B05EB20F5053}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51EE3166-844C-4966-9A90-B05EB20F5053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6931EFF1-EF13-494F-969C-314DE220FC32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6931EFF1-EF13-494F-969C-314DE220FC32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6931EFF1-EF13-494F-969C-314DE220FC32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6931EFF1-EF13-494F-969C-314DE220FC32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53D212BD-4EB9-4096-B9B3-5C8FB831497E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53D212BD-4EB9-4096-B9B3-5C8FB831497E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53D212BD-4EB9-4096-B9B3-5C8FB831497E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53D212BD-4EB9-4096-B9B3-5C8FB831497E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
