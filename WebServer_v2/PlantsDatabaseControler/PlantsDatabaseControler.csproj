@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="SqlCommands\DeleteSqlCommands\" />
-    <Folder Include="SqlCommands\ProcedureSqlCommands\" />
     <Folder Include="SqlCommands\UpdateSqlCommands\" />
   </ItemGroup>
 

@@ -27,6 +27,7 @@ namespace DatabaseConneciton
                 conn.Dispose();
             }
         }
+        
 
         public List<T> GetSqlRequest<T>(string query) where T : new()
         {

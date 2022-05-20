@@ -29,23 +29,23 @@ namespace PlantsDatabaseControler.SqlCommands
             {
                 return new InsertCompanyQuery().GetInsertQuery((Company)model);
             }
-            if (model.GetType() == typeof(InsertPaletPlantsTypeQuery))
+            if (model.GetType() == typeof(PaletPlantsType))
             {
                 return new InsertPaletPlantsTypeQuery().GetInsertQuery((PaletPlantsType)model);
             }
-            if (model.GetType() == typeof(InsertPaletQuery))
+            if (model.GetType() == typeof(Palet))
             {
                 return new InsertPaletQuery().GetInsertQuery((Palet)model);
             }
-            if (model.GetType() == typeof(InsertTypeOfCareQuery))
+            if (model.GetType() == typeof(TypeOfCare))
             {
                 return new InsertTypeOfCareQuery().GetInsertQuery((TypeOfCare)model);
             }
-            if (model.GetType() == typeof(InsertUserCategoryQuery))
+            if (model.GetType() == typeof(UserCategory))
             {
                 return new InsertUserCategoryQuery().GetInsertQuery((UserCategory)model);
             }
-            if (model.GetType() == typeof(InsertUsersQuery))
+            if (model.GetType() == typeof(Users))
             {
                 return new InsertUsersQuery().GetInsertQuery((Users)model);
             }

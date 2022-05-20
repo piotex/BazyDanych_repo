@@ -14,7 +14,7 @@ namespace PlantsDatabaseControler
         [Key]
         public int CARESCHEDULEID { get; set; }
         public int TYPEOFCAREID { get; set; }
-        public DateTime TIMEOFCARE { get; set; }
+        public int TIMEOFCARE { get; set; }
         public int PALETPLANTSTYPEID { get; set; }
         public int PRIORITYNUMBER { get; set; }
 
