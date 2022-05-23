@@ -19,9 +19,9 @@ namespace WebServer_v2
         }
         public static bool IsTestVersion()
         {
-            return false;
+            //return false;
 
-            //return true;
+            return true;
         }
     }
 }
