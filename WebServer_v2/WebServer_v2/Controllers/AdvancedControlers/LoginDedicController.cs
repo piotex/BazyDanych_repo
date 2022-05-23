@@ -3,6 +3,7 @@ using PlantsDatabaseControler;
 using PlantsDatabaseControler.MoqModels;
 using PlantsDatabaseControler.SqlCommands;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebServer_v2.Models;
 
@@ -17,24 +18,14 @@ namespace WebServer_v2.Controllers.AdvancedControlers
         }
 
         [HttpPost]
-        public int LogIn(LoginModel login)                           //returns role_id
+        public Users LogIn(Users user)                        
         {
-            List<Users> tmp = new List<Users>();
             if (ApplicationVersion.IsTestVersion()){
-                tmp = MoqUsersList.GetInstance().GetMoqList();
+                return MoqUsersList.GetInstance().GetMoqList().Where(x => x.MAIL == user.MAIL).FirstOrDefault();
             }
             else{
-                tmp = new SelectQuery().Select<Users>();
+                return new SelectQuery().Select<Users>().Where(x => x.MAIL == user.MAIL).First();
             }
-
-            //-------------------------------------------------------------poprawic
-            foreach (var item in tmp)
-            {
-                if (item.MAIL == login.Login){
-                    return item.USERCATEGORYID;
-                }
-            }
-            return -1;
         }
     }
 }
