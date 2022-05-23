@@ -41,7 +41,7 @@ namespace WebServer_v2.Controllers.BasicControlers
         {
             if (ApplicationVersion.IsTestVersion())
             {
-                //MoqActualTaskList.GetInstance().PushToMoqList(company);
+                MoqActualTaskList.GetInstance().PushToMoqList(company);
             }
             else
             {
