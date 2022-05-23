@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PlantsDatabaseControler;
+using PlantsDatabaseControler.MoqModels;
 using PlantsDatabaseControler.SqlCommands;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,7 +22,7 @@ namespace WebServer_v2.Controllers.AdvancedControlers
             if (ApplicationVersion.IsTestVersion())
             {
                 List<ActualTaskImportantData> ret = new List<ActualTaskImportantData>();
-                /*
+                
                 List<ActualTask> ActualTaskList = MoqActualTaskList.GetInstance().GetMoqList();
                 List<Palet> PaletsList = MoqPaletList.GetInstance().GetMoqList();
                 List<PaletPlantsType> PaletPlantsTypeList = MoqPaletPlantsTypeList.GetInstance().GetMoqList();
@@ -30,52 +32,52 @@ namespace WebServer_v2.Controllers.AdvancedControlers
                 // ----------------------------------------------------------------------------------do poprawy joinowanie-----------------------------------------------------------
                 foreach (ActualTask actualTask in ActualTaskList)
                 {
-                    ActualTaskDedic tmp = new ActualTaskDedic();
-                    tmp.ActualTaskId = actualTask.ActualTaskId;
-                    tmp.User_Id = actualTask.User_Id;
-                    tmp.RealizationDate = actualTask.RealizationDate;
+                    ActualTaskImportantData tmp = new ActualTaskImportantData();
+                    tmp.ACTUALTASKID = actualTask.ACTUALTASKID;
+                    tmp.USERID = actualTask.USERID;
+                    tmp.REALIZATIONDATE = actualTask.REALIZATIONDATE;
 
                     foreach (Palet palet in PaletsList)
                     {
-                        if (actualTask.Palet_Id == palet.PaletId)
+                        if (actualTask.PALETID == palet.PALETID)
                         {
-                            tmp.DateOfPlanting = palet.DateOfPlanting;
-                            tmp.PaletNumber = palet.PaletNumber;
+                            tmp.DATEOFPLANTING = palet.DATEOFPLANTING;
+                            tmp.PALETID = palet.PALETNUMBER;
                             foreach (PaletPlantsType paletPlantsType in PaletPlantsTypeList)
                             {
-                                if (palet.PaletPlantsType_Id == paletPlantsType.PaletPlantsTypeId)
+                                if (palet.PALETPLANTSTYPEID == paletPlantsType.PALETPLANTSTYPEID)
                                 {
-                                    tmp.PaletPlantsTypeName = paletPlantsType.PaletPlantsTypeName;
+                                    tmp.PALETPLANTSTYPENAME = paletPlantsType.PALETPLANTSTYPENAME;
                                 }
                             }
                         }
                     }
                     foreach (CareSchedule careSchedule in CareScheduleList)
                     {
-                        if (actualTask.CareSchedule_Id == careSchedule.CareScheduleId)
+                        if (actualTask.CARESCHEDULEID == careSchedule.CARESCHEDULEID)
                         {
-                            tmp.PriorityNumber = careSchedule.PriorityNumber;
-                            tmp.TimeOfCare = careSchedule.TimeOfCare;
+                            tmp.PRIORITYNUMBER = careSchedule.PRIORITYNUMBER;
+                            tmp.TIMEOFCARE = careSchedule.TIMEOFCARE;
                             foreach (TypeOfCare typeOfCare in TypeOfCareList)
                             {
-                                if (typeOfCare.TypeOfCareId == careSchedule.TypeOfCare_Id)
+                                if (typeOfCare.TYPEOFCAREID == careSchedule.TYPEOFCAREID)
                                 {
-                                    tmp.TypeOfCareName = typeOfCare.TypeOfCareName;
+                                    tmp.TYPEOFCARENAME = typeOfCare.TYPEOFCARENAME;
                                 }
                             }
                         }
                     }
                     if (
-                        tmp.DateOfPlanting != new DateTime() &&
-                        tmp.PaletPlantsTypeName != null &&
-                        tmp.TimeOfCare != new DateTime() &&
-                        tmp.TypeOfCareName != null
+                        tmp.DATEOFPLANTING != new DateTime() &&
+                        tmp.PALETPLANTSTYPENAME != null &&
+                        tmp.TIMEOFCARE != 0 &&
+                        tmp.TYPEOFCARENAME != null
                         )
                     {
                         ret.Add(tmp);
                     }
                 }
-                */
+                
                 return ret;
             }
             else
@@ -89,24 +91,20 @@ namespace WebServer_v2.Controllers.AdvancedControlers
 
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> Update(int userId, int actualTaskId)
         {
             if (ApplicationVersion.IsTestVersion())
             {
-                /*
                 List<ActualTask> list = MoqActualTaskList.GetInstance().GetMoqList();
                 for (int i = 0; i < list.Count; i++)
                 {
-                    if (list[i].ActualTaskId == actualTask.ActualTaskId)
+                    if (list[i].ACTUALTASKID == actualTaskId)
                     {
-                        //list[i].CareSchedule_Id = actualTask.CareSchedule_Id ;
-                        //list[i].Palet_Id = actualTask.Palet_Id ;
-                        list[i].RealizationDate = actualTask.RealizationDate;
-                        list[i].User_Id = actualTask.User_Id;
+                        list[i].REALIZATIONDATE = DateTime.Now;
+                        list[i].USERID = userId;
                     }
                 }
-                */
             }
             else
             {

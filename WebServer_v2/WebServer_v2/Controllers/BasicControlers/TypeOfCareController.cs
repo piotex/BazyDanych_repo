@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PlantsDatabaseControler;
+using PlantsDatabaseControler.MoqModels;
 using PlantsDatabaseControler.SqlCommands;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -20,7 +22,7 @@ namespace WebServer_v2.Controllers.BasicControlers
         {
             if (ApplicationVersion.IsTestVersion())
             {
-                //return MoqActualTaskList.GetInstance().GetMoqList();
+                return MoqTypeOfCareList.GetInstance().GetMoqList();
             }
             return new SelectQuery().Select<TypeOfCare>();
         }
@@ -30,7 +32,7 @@ namespace WebServer_v2.Controllers.BasicControlers
         {
             if (ApplicationVersion.IsTestVersion())
             {
-                //return MoqActualTaskList.GetInstance().GetMoqList();
+                return MoqTypeOfCareList.GetInstance().GetMoqList().Where(x => x.TYPEOFCAREID == id).First();
             }
             return new SelectQuery().Select<TypeOfCare>(id);
         }
@@ -40,7 +42,7 @@ namespace WebServer_v2.Controllers.BasicControlers
         {
             if (ApplicationVersion.IsTestVersion())
             {
-                //MoqActualTaskList.GetInstance().PushToMoqList(company);
+                MoqTypeOfCareList.GetInstance().PushToMoqList(company);
             }
             else
             {
