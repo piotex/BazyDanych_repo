@@ -23,7 +23,23 @@ namespace WebServer_v2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>                                                                                     //hanges
+            {
+                options.AddPolicy(name: "policy_tmp",
+                                  builder =>
+                                  {
+                                      builder.AllowAnyOrigin()
+                                                .AllowAnyHeader()
+                                                .AllowAnyMethod();
+                                  });
+            });
+
             services.AddControllersWithViews();
+
+                // services.AddSwaggerGen(c =>
+                // {
+                //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAppServer", Version = "v1" });
+                // });
         }
 
 
@@ -33,6 +49,8 @@ namespace WebServer_v2
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+               // app.UseSwagger();
+               // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAppServer v1"));
             }
             else
             {
@@ -44,6 +62,8 @@ namespace WebServer_v2
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors("policy_tmp");
 
             app.UseAuthorization();
 
