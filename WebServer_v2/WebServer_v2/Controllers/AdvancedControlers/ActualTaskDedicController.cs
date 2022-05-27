@@ -4,6 +4,7 @@ using PlantsDatabaseControler.MoqModels;
 using PlantsDatabaseControler.SqlCommands;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebServer_v2.Controllers.AdvancedControlers
@@ -86,13 +87,8 @@ namespace WebServer_v2.Controllers.AdvancedControlers
             }
         }
 
-        private void conv_to_ActualTaskDedic_List()
-        {
-
-        }
-
         [HttpPut]
-        public async Task<IActionResult> Update(int userId, int actualTaskId)
+        public void Update(int userId, int actualTaskId)                                        //zmienia userId i RealizationDate - wywoluje procedure
         {
             if (ApplicationVersion.IsTestVersion())
             {
@@ -110,7 +106,59 @@ namespace WebServer_v2.Controllers.AdvancedControlers
             {
                 new ProcedureQuery().UpdateActualTaskProcedure(userId, actualTaskId);
             }
-            return NoContent();
+        }
+        [HttpPut("{id}")]   
+        public void UpdateUserId(int userId, int actualTaskId)                                  //zmienia tylko UserId
+        {
+            if (ApplicationVersion.IsTestVersion())
+            {
+                List<ActualTask> list = MoqActualTaskList.GetInstance().GetMoqList();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].ACTUALTASKID == actualTaskId)
+                    {
+                        list[i].USERID = userId;
+                    }
+                }
+            }
+            else
+            {
+                ActualTask model = new ActualTask() { USERID = userId, ACTUALTASKID = actualTaskId };
+                new UpdateQuery().Update(model);
+            }
+        }
+
+        [HttpPost]
+        public void Post(int paletNumber, int paletPlantsTypeId)
+        {
+            if (ApplicationVersion.IsTestVersion())
+            {
+                List<CareSchedule> collection = MoqCareScheduleList.GetInstance().GetMoqList().Where(x => x.PALETPLANTSTYPEID == paletPlantsTypeId).ToList();
+                foreach (var item in collection)
+                {
+                    ActualTask model = new ActualTask()
+                    {
+                        ACTUALTASKID = 900,
+                        CARESCHEDULEID = item.CARESCHEDULEID,
+                        PALETID = paletNumber,
+                        REALIZATIONDATE = null,
+                        USERID = null
+                    };
+                    MoqActualTaskList.GetInstance().PushToMoqList(model);
+                }
+                Palet palet = new Palet()
+                {
+                    DATEOFPLANTING = DateTime.Now,
+                    PALETID = 900,
+                    PALETNUMBER = paletNumber,
+                    PALETPLANTSTYPEID = paletPlantsTypeId
+                };
+                MoqPaletList.GetInstance().PushToMoqList(palet);
+            }
+            else
+            {
+                new ProcedureQuery().AddActualTasksProcedure(paletNumber, paletPlantsTypeId);
+            }
         }
     }
 }
