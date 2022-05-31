@@ -133,23 +133,27 @@ namespace WebServer_v2.Controllers.AdvancedControlers
         {
             if (ApplicationVersion.IsTestVersion())
             {
+                int maxPaletIdx = MoqPaletList.GetInstance().GetMoqList().Max(x => x.PALETID);
+                int maxActualTaskIdx = MoqActualTaskList.GetInstance().GetMoqList().Max(x => x.ACTUALTASKID);
+
                 List<CareSchedule> collection = MoqCareScheduleList.GetInstance().GetMoqList().Where(x => x.PALETPLANTSTYPEID == paletPlantsTypeId).ToList();
                 foreach (var item in collection)
                 {
                     ActualTask model = new ActualTask()
                     {
-                        ACTUALTASKID = 900,
+                        ACTUALTASKID = maxActualTaskIdx+1,
                         CARESCHEDULEID = item.CARESCHEDULEID,
                         PALETID = paletNumber,
                         REALIZATIONDATE = null,
                         USERID = null
                     };
                     MoqActualTaskList.GetInstance().PushToMoqList(model);
+                    maxActualTaskIdx++;
                 }
                 Palet palet = new Palet()
                 {
                     DATEOFPLANTING = DateTime.Now,
-                    PALETID = 900,
+                    PALETID = maxPaletIdx + 1,
                     PALETNUMBER = paletNumber,
                     PALETPLANTSTYPEID = paletPlantsTypeId
                 };
