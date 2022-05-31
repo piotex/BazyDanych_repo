@@ -40,7 +40,7 @@ namespace WebServer_v2.Controllers.AdvancedControlers
 
                     foreach (Palet palet in PaletsList)
                     {
-                        if (actualTask.PALETID == palet.PALETID)
+                        if (actualTask.PALETID == palet.PALETNUMBER)
                         {
                             tmp.DATEOFPLANTING = palet.DATEOFPLANTING;
                             tmp.PALETID = palet.PALETNUMBER;
@@ -78,7 +78,7 @@ namespace WebServer_v2.Controllers.AdvancedControlers
                         ret.Add(tmp);
                     }
                 }
-                
+
                 return ret;
             }
             else
